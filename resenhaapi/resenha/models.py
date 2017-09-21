@@ -9,9 +9,11 @@ class Livro(models.Model):
   editora = models.CharField(max_length=200,blank=True,null=True)
   criado = models.DateTimeField(auto_now_add=True)
   atualizado = models.DateTimeField(null=True)
+  isbn = models.CharField(max_length=100,blank=True, null=True, default='')
 
-  def __str__(self):
-    return self.nome
+  @property
+  def resenhas(self):
+    return Resenha.objects.filter(livro = self.id)
 
 class Resenha(models.Model):
   dono = models.ForeignKey(User, related_name='resenhas', on_delete=models.CASCADE)
@@ -50,6 +52,6 @@ class Avaliacao(models.Model):
   )
   estrelas = models.CharField(max_length=2,choices=STARS)
   resenha = models.ForeignKey(Resenha)
-  usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+  # usuario = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
   # usuario = models.ForeignKey('auth.User')
 

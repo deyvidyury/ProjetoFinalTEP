@@ -25,7 +25,13 @@ SECRET_KEY = '0&kl92&r0jp+)z!&v=qg@6z@n08b2sd!ez(opa&2(x^7c^1f=#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*','http://localhost:8080']
+
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8080',
+)
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Application definition
@@ -42,11 +48,14 @@ INSTALLED_APPS = [
     'resenha.apps.ResenhaConfig',
     'crispy_forms',
     'django_filters',
+    'rest_framework_swagger',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -126,23 +135,36 @@ STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'resenha.pagination.LimitOffsetPaginationWithMaxLimit',
-    'PAGE_SIZE': 5,
+    'PAGE_SIZE': 1,
     'DEFAULT_FILTER_BACKENDS' : (
       'rest_framework.filters.DjangoFilterBackend',
       'rest_framework.filters.SearchFilter',
       'rest_framework.filters.OrderingFilter'
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-      'rest_framework.authentication.BasicAuthentication',
-      'rest_framework.authentication.SessionAuthentication',
+      # 'rest_framework.authentication.BasicAuthentication',
+      # 'rest_framework.authentication.SessionAuthentication',
       'rest_framework.authentication.TokenAuthentication',
     ),
-    'DEFAULT_THROTTLE_CLASSES': (
-      'rest_framework.throttling.AnonRateThrottle',
-      'rest_framework.throttling.UserRateThrottle'
-    ),
-    'DEFAULT_THROTTLE_RATES': {
-      'anon': '10/hour',
-      'user': '100/hour',
-    }
+    # 'DEFAULT_THROTTLE_CLASSES': (
+    #   'rest_framework.throttling.AnonRateThrottle',
+    #   'rest_framework.throttling.UserRateThrottle'
+    # ),
+    # 'DEFAULT_THROTTLE_RATES': {
+    #   'anon': '10/hour',
+    #   'user': '1000/hour',
+    # }
 }
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'basic': {
+            'type': 'basic'
+        }
+    },
+    'USE_SESSION_AUTH': True,
+    
+}
+
+LOGIN_URL = 'rest_framework:login',
+LOGOUT_URL = 'rest_framework:logout'    

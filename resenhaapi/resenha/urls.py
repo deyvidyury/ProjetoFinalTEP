@@ -6,8 +6,10 @@ from rest_framework.authtoken import views
 from .views import *
 
 urlpatterns = [
+  url(r'^swagger$', SwaggerSchemaView.as_view()),
   url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
   url(r'^api-token/', views.obtain_auth_token, name='api-token'),
+  # url(r'^api-token/', SFObtainAuthToken.as_view()),
   url(r'^$', ApiRoot.as_view(), name='root'),
   url(r'^users/$',
       UserList.as_view(),
