@@ -71,12 +71,20 @@
       },
       userIsAuthenticated () {
         // return true
+        let user = this.$store.getters.user
+        console.log(user)
         return this.$store.getters.user !== null && this.$store.getters.user !== undefined
       }
     },
     methods: {
       onLogout () {
         this.$store.dispatch('logout')
+      }
+    },
+    created () {
+      let user = this.$store.getters.user
+      if (user) {
+        console.log(user)
       }
     }
   }

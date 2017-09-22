@@ -37,6 +37,9 @@ export const store = new Vuex.Store({
     setLivrosCarregados (state, payload) {
       state.livros = payload
     },
+    setLivro (state, payload) {
+      state.livros.push(payload)
+    },
     setPreviousResenhas (state, payload) {
       state.previousResenhas = payload
     },
@@ -164,7 +167,6 @@ export const store = new Vuex.Store({
           HTTP.get(BASE_URL + 'users/?search=' + payload.username)
             .then(response => {
               commit('setLoading', false)
-              console.log(response)
               let user = response.data.results
               user.authenticated = true
               commit('setUser', user)
@@ -188,6 +190,21 @@ export const store = new Vuex.Store({
           localStorage.removeItem('token')
           commit('setUser', null)
           router.push('/')
+        })
+        .catch(error => {
+          commit('setLoading', false)
+          console.log(error)
+        })
+    },
+    criarLivro ({commit}, payload) {
+      commit('setLoading', true)
+      let token = localStorage.getItem('token')
+      console.log(payload)
+      HTTP.post(BASE_URL + 'livros/', payload, {headers: { Authorization: 'Bearer ' + token }})
+        .then((response) => {
+          console.log(response)
+          commit('setLoading', false)
+          commit('setLivro', response.data)
         })
         .catch(error => {
           commit('setLoading', false)

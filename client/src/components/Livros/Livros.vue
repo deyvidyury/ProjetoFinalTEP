@@ -10,6 +10,11 @@
         v-if="loading"></v-progress-circular>
       </v-flex>
     </v-layout>
+    <v-layout row wrap class="mb-2">
+      <v-flex xs12 sm6 class="text-xs-center text-sm-right">
+        <v-btn large router to="/livros/new" class="info">Novo Livro</v-btn>
+      </v-flex>
+    </v-layout>
     <v-layout row wrap v-if="!loading">
       <v-flex xs12 class="mt-2">
         <v-card class="mb-2" v-for="livro in livros" :key="livro.url">

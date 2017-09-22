@@ -13,15 +13,3 @@ class DonoResenhaOuSomenteLeitura(BasePermission):
 			return True
 		else:
 			return obj.dono.user == request.user
-
-"""
-REGRAS
-	Comentarios
-		Para comentar, usuario tem que logar
-		Dono do comentario ou da resenha podem deletar comentario
-		Dono do comentario pode editar comentario
-
-	Avaliacao
-		Para avaliar, usuario precisar estar logado
-		Usuario so pode avaliar uma unica vez uma resenha
-"""

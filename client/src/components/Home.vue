@@ -12,6 +12,7 @@
     </v-layout>
     <v-layout row wrap v-if="!loading">
       <v-flex xs12 md7 class="mt-2">
+        <h5>Resenhas mais recentes</h5>
         <v-card class="mb-2" v-for="resenha in resenhas" :key="resenha.url">
           <v-container fluid grid-list-lg>
             <v-layout row>
@@ -41,6 +42,7 @@
       </v-flex>
 
       <v-flex xs12 md4 offset-md1  class="mt-2">
+        <h5>Livros</h5>
         <v-card class="mb-2" v-for="livro in livros" :key="livro.id">
           <v-container fluid grid-list-lg>
             <v-layout row>

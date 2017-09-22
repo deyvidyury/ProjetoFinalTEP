@@ -21,19 +21,21 @@
             <p>Autor: {{ livro.autor }}</p>
             <p>Ano: {{ livro.ano }}</p>
             <p>Editora: {{ livro.editora }}</p>
-            <v-divider></v-divider>
-            <h5>Resenhas</h5>
-            <v-list two-line>
-              <v-list-tile avatar ripple v-for="(resenha, index) in livro.resenhas" :key="resenha.id" @click="loadResenha(resenha)">
-                <v-list-tile-content>
-                  <v-list-tile-title>{{ resenha.dono }}</v-list-tile-title>
-                  <v-list-tile-sub-title class="grey--text text--darken-4">{{ resenha.criado | date }}</v-list-tile-sub-title>
-                  <v-list-tile-sub-title>{{ resenha.texto | truncate(100, '...') }}</v-list-tile-sub-title>
-                  <v-list-tile-sub-title class="mb-1">Nota: {{ resenha.nota.estrelas__avg  }}</v-list-tile-sub-title>
-                </v-list-tile-content>
-                <v-divider v-if="index + 1 < livro.resenhas.length"></v-divider>
-              </v-list-tile>
-            </v-list>
+            <div v-if="livro.resenhas.length > 0">
+              <v-divider></v-divider>
+              <h5>Resenhas</h5>
+              <v-list two-line>
+                <v-list-tile avatar ripple v-for="(resenha, index) in livro.resenhas" :key="resenha.id" @click="loadResenha(resenha)">
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ resenha.dono }}</v-list-tile-title>
+                    <v-list-tile-sub-title class="grey--text text--darken-4">{{ resenha.criado | date }}</v-list-tile-sub-title>
+                    <v-list-tile-sub-title>{{ resenha.texto | truncate(100, '...') }}</v-list-tile-sub-title>
+                    <v-list-tile-sub-title class="mb-1">Nota: {{ resenha.nota.estrelas__avg  }}</v-list-tile-sub-title>
+                  </v-list-tile-content>
+                  <v-divider v-if="index + 1 < livro.resenhas.length"></v-divider>
+                </v-list-tile>
+              </v-list>  
+            </div>
           </v-flex>
         </v-layout>
       </v-flex>

@@ -14,7 +14,7 @@ class Livro(models.Model):
   @property
   def resenhas(self):
     return Resenha.objects.filter(livro = self.id)
-
+ana
 class Resenha(models.Model):
   dono = models.ForeignKey(User, related_name='resenhas', on_delete=models.CASCADE)
   livro = models.ForeignKey(Livro, related_name="livro")
@@ -52,6 +52,6 @@ class Avaliacao(models.Model):
   )
   estrelas = models.CharField(max_length=2,choices=STARS)
   resenha = models.ForeignKey(Resenha)
-  # usuario = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+  usuario = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
   # usuario = models.ForeignKey('auth.User')
 
